@@ -1,0 +1,48 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 399
+  ClientWidth = 481
+  FormFactor.Width = 1366
+  FormFactor.Height = 768
+  FormFactor.Devices = [dkDesktop]
+  OnCreate = FormCreate
+  object btnStart: TSpeedButton
+    Height = 22.000000000000000000
+    Position.X = 24.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'Start'
+    Width = 65.000000000000000000
+    OnClick = btnStartClick
+  end
+  object btnPause: TSpeedButton
+    Height = 22.000000000000000000
+    Position.X = 88.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'Pause'
+    Width = 80.000000000000000000
+    OnClick = btnPauseClick
+  end
+  object btnContinue: TSpeedButton
+    Height = 22.000000000000000000
+    Position.X = 184.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'Continue'
+    Width = 80.000000000000000000
+    OnClick = btnContinueClick
+  end
+  object Image1: TImage
+    Height = 289.000000000000000000
+    Position.X = 48.000000000000000000
+    Position.Y = 56.000000000000000000
+    Width = 377.000000000000000000
+  end
+  object lblLength: TLabel
+    Height = 15.000000000000000000
+    Position.X = 336.000000000000000000
+    Position.Y = 16.000000000000000000
+    Text = 'lblLength'
+    Width = 120.000000000000000000
+  end
+end

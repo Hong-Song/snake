@@ -1,0 +1,10 @@
+__history/
+Model/__history/
+View\FM/__history/
+View\Win/__history/
+ViewModel/__history/
+*.dcu
+*.local
+*.identcache
+*.exe
+*.rsm

@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{D3E91104-1774-490B-9B6F-2C8D591BF5B4}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="View\Win\Snake.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="View\FM\fmSnake.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Snake">
+        <MSBuild Projects="View\Win\Snake.dproj"/>
+    </Target>
+    <Target Name="Snake:Clean">
+        <MSBuild Projects="View\Win\Snake.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Snake:Make">
+        <MSBuild Projects="View\Win\Snake.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="fmSnake">
+        <MSBuild Projects="View\FM\fmSnake.dproj"/>
+    </Target>
+    <Target Name="fmSnake:Clean">
+        <MSBuild Projects="View\FM\fmSnake.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="fmSnake:Make">
+        <MSBuild Projects="View\FM\fmSnake.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Snake;fmSnake"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Snake:Clean;fmSnake:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Snake:Make;fmSnake:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
