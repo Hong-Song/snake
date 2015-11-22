@@ -7,6 +7,7 @@ uses
   Controls, Forms, Dialogs, ExtCtrls, StdCtrls, ViewModel.Snake,
   Buttons;
 
+
 type
   TfrmMain = class(TForm)
     Image1: TImage;

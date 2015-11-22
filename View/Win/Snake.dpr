@@ -8,6 +8,7 @@ uses
 
 {$R *.res}
 
+//comments
 begin
   ReportMemoryLeaksOnShutdown := (DebugHook<>0);
   Application.Initialize;
