@@ -1,0 +1,148 @@
+--Find FLOC
+
+declare @FLOCID nvarchar(50), @EquipID nvarchar(50), 
+        @Description nvarchar(255), @FLOC nvarchar(255),
+        @StandardCode nvarchar(255), @SerialNo nvarchar(255), @Category nvarchar(255),
+        @PlanningPlantCode nvarchar(255), @PlannerGroupCode nvarchar(255),  
+        @MaintPlantCode nvarchar(255), @SAPFLOCID nvarchar(50), @Status nvarchar(255) 
+declare @MatchMode int
+
+declare @cmd nvarchar(max)
+declare @whr nvarchar(max)
+
+
+set @FLOCID = :FLOCID           --Numeric String
+set @EquipID = :EquipID         --Numeric String
+set @FLOC = :FLOC
+set @Description = :Description
+set @StandardCode = :StandardCode
+set @Category = :Category
+set @SerialNo = :SerialNo
+set @PlanningPlantCode = :PlanningPlantCode
+set @PlannerGroupCode = :PlannerGroupCode
+set @MaintPlantCode = :MaintPlantCode 
+set @SAPFLOCID = :SAPFLOCID
+set @Status = :Status
+
+set @MatchMode = :MatchMode    -- 1=Exact Match Only    0=like 
+
+
+set @cmd =  'Select F.FLOCID, 12 as NodeTypeID, F.Description, F.FLOC, ' + 
+                'F.Category, F.StandardCode, F.SerialNo ' + 
+            'From FLOC F  '
+
+set @whr = ''
+if @FLOCID > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.FLOCID = ' + @FLOCID
+    else
+        set @whr  = @whr + ' cast(F.FLOCID as nvarchar) like ''%' + @FLOCID + '%'' '
+end
+
+if @EquipID > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.EquipID = ' + @EquipID
+    else
+        set @whr  = @whr + ' cast(F.EquipID as nvarchar) like ''%' + @EquipID + '%'' '
+end
+
+if @Description > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.Description =''' + @Description + '''  '
+    else
+        set @whr  = @whr + ' F.Description  like ''%' + @Description + '%''  '
+end
+
+if @FLOC > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.FLOC =''' + @FLOC + '''  '
+    else
+        set @whr  = @whr + ' F.FLOC  like ''%' + @FLOC + '%''  '
+end
+
+if @StandardCode > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.StandardCode =''' + @StandardCode + '''  '
+    else
+        set @whr  = @whr + ' F.StandardCode  like ''%' + @StandardCode + '%''  '
+end
+
+if @Category > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.Category =''' + @Category + '''  '
+    else
+        set @whr  = @whr + ' F.Category  like ''%' + @Category + '%''  '
+end
+
+if @PlanningPlantCode > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.PlanningPlantCode =''' + @PlanningPlantCode + '''  '
+    else
+        set @whr  = @whr + ' F.PlanningPlantCode  like ''%' + @PlanningPlantCode + '%''  '
+end
+
+if @PlannerGroupCode > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.PlannerGroupCode =''' + @PlannerGroupCode + '''  '
+    else
+        set @whr  = @whr + ' F.PlannerGroupCode  like ''%' + @PlannerGroupCode + '%''  '
+end
+
+if @MaintPlantCode > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.MaintPlantCode =''' + @MaintPlantCode + '''  '
+    else
+        set @whr  = @whr + ' F.MaintPlantCode  like ''%' + @MaintPlantCode + '%''  '
+end
+
+if @SAPFLOCID > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.SAPFLOCID =''' + @SAPFLOCID + '''  '
+    else
+        set @whr  = @whr + ' F.SAPFLOCID  like ''%' + @SAPFLOCID + '%''  '
+end
+
+if @Status > ' '
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.Status =''' + @Status + '''  '
+    else
+        set @whr  = @whr + ' F.Status  like ''%' + @Status + '%''  '
+end
+
+if @SerialNo <> ''
+begin
+    if @whr <> '' set @whr = @whr + ' or '
+    if @MatchMode=1	
+        set @whr  = @whr + ' F.SerialNo =''' + @SerialNo + '''  '
+    else
+        set @whr  = @whr + ' F.SerialNo  like ''%' + @SerialNo + '%''  '
+end
+
+if @whr<>''
+    set @whr =  ' where ( ' + @whr + ') '
+
+
+Exec(@cmd + @whr) 
+
